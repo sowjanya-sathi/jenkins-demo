@@ -3,7 +3,7 @@ pipeline{
 	stages{
 		stage("checkout"){
 			steps{
-				echo 'code has been checkedout by jenkins'
+				echo 'code has been checked out by jenkins it is success'
 }
 }
 }
