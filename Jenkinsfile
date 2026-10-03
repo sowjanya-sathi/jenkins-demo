@@ -28,8 +28,29 @@ pipeline {
                 '''
             }
         }
-    }
+	stage('Docker Run & Test') {
+   	 steps {
+       		 echo '=== DOCKER RUN & TEST ==='
 
+      		  sh '''
+            	docker rm -f jenkins-demo-test || true
+		
+           	 docker run -d \
+                	--name jenkins-demo-test \
+              	 	 -p 8081:80 \
+               		 jenkins-demo:${BUILD_NUMBER}
+
+        	    sleep 3
+
+         	   curl -f http://localhost:8081
+
+            	docker logs jenkins-demo-test
+
+            	docker rm -f jenkins-demo-test
+       		 '''
+    	}
+    }
+}
     post {
         success {
             echo 'CI + Docker build completed successfully!'
