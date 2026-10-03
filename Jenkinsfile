@@ -37,12 +37,14 @@ pipeline {
 		
            	 docker run -d \
                 	--name jenkins-demo-test \
+			--network jenkins-network \
               	 	 -p 8081:80 \
                		 jenkins-demo:${BUILD_NUMBER}
 
         	    sleep 3
 
-         	   curl -f http://localhost:8081
+         	   curl -f http://jenkins-demo-test
+		   curl -f http://localhost:8081
 
             	docker logs jenkins-demo-test
 
